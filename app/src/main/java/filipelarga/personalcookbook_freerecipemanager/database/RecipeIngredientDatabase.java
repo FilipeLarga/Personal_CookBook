@@ -6,7 +6,7 @@ import android.arch.persistence.room.RoomDatabase;
 import android.arch.persistence.room.TypeConverters;
 import android.content.Context;
 
-@Database(entities = {RecipeEntity.class, IngredientEntity.class, RecipeIngredientJoin.class}, version = 0, exportSchema = false)
+@Database(entities = {RecipeEntity.class, IngredientEntity.class, RecipeIngredientJoin.class}, version = 1, exportSchema = false)
 @TypeConverters(DataConverter.class)
 public abstract class RecipeIngredientDatabase extends RoomDatabase{
 

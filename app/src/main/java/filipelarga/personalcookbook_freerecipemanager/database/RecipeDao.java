@@ -1,5 +1,6 @@
 package filipelarga.personalcookbook_freerecipemanager.database;
 
+import android.arch.lifecycle.LiveData;
 import android.arch.persistence.room.Dao;
 import android.arch.persistence.room.Delete;
 import android.arch.persistence.room.Insert;
@@ -13,7 +14,7 @@ import java.util.List;
 public interface RecipeDao {
 
     @Query("SELECT * FROM Recipe")
-    List<RecipeEntity> loadAllRecipes();
+    LiveData<List<RecipeEntity>> loadAllRecipes();
 
     @Insert
     void insertRecipe(RecipeEntity recipeEntity);
@@ -23,5 +24,8 @@ public interface RecipeDao {
 
     @Delete
     void deleteRecipe(RecipeEntity recipeEntity);
+
+    @Query("DELETE FROM Recipe")
+    void deleteAll();
 
 }

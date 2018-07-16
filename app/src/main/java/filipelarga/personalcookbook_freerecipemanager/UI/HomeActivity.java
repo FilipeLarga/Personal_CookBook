@@ -1,8 +1,8 @@
-package filipelarga.personalcookbook_freerecipemanager.UI;
+package filipelarga.personalcookbook_freerecipemanager.ui;
 
 import android.content.Intent;
-import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.app.AppCompatActivity;
 import android.view.View;
 import android.view.animation.AnimationUtils;
 import android.widget.Button;
@@ -32,7 +32,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     public void startAddRecipeActivity(View view) {
-        //TODO
+        Intent intent = new Intent(this, NewRecipeActivity.class);
+        startActivity(intent);
     }
 
     public void startListRecipesActivity(View view) {

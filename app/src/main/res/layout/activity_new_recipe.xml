@@ -4,46 +4,36 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".UI.NewRecipeActivity"
+    tools:context=".ui.NewRecipeActivity"
     >
 
-    <ImageView
-        android:id="@+id/header_image"
-        android:layout_width="match_parent"
-        android:layout_height="0dp"
-        app:layout_constraintHeight_percent="0.25"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        android:background="#123132"/>
-
-    <EditText
+    <Button
         android:id="@+id/name_EditText"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:hint="Name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/header_image"/>
+        android:onClick="addRecipeToDB" />
 
-    <TextView
-        android:id="@+id/time"
-        android:layout_width="wrap_content"
+    <Button
+        android:id="@+id/name_EditText2"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:drawableStart="@drawable/ic_access_alarm_black_24dp"
-        android:text="Duration"
+        android:hint="Name"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toBottomOf="@id/name_EditText"/>
-
-    <NumberPicker
-        android:id="@+id/spinner"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
         app:layout_constraintTop_toBottomOf="@id/name_EditText"
-        app:layout_constraintLeft_toRightOf="@id/time">
+        android:onClick="goBack" />
 
-    </NumberPicker>
-
+    <Button
+        android:id="@+id/name_EditText3"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:hint="delete"
+        android:onClick="delete"
+        app:layout_constraintLeft_toLeftOf="parent"
+        app:layout_constraintRight_toRightOf="parent"
+        app:layout_constraintTop_toBottomOf="@id/name_EditText2" />
 
 </android.support.constraint.ConstraintLayout>

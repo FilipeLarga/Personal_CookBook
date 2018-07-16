@@ -1,16 +1,17 @@
-package filipelarga.personalcookbook_freerecipemanager.UI;
+package filipelarga.personalcookbook_freerecipemanager.ui;
 
-import android.support.design.widget.AppBarLayout;
-import android.support.design.widget.CollapsingToolbarLayout;
-import android.support.v7.app.AppCompatActivity;
+import android.content.Intent;
 import android.os.Bundle;
+import android.support.design.widget.AppBarLayout;
+import android.support.design.widget.FloatingActionButton;
+import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.view.View;
 import android.widget.ImageView;
 
 import com.bumptech.glide.Glide;
 
 import filipelarga.personalcookbook_freerecipemanager.R;
-import filipelarga.personalcookbook_freerecipemanager.recyclerview.ListRecipesFragment;
 
 public class ListRecipesActivity extends AppCompatActivity {
 
@@ -24,9 +25,8 @@ public class ListRecipesActivity extends AppCompatActivity {
         setSupportActionBar(toolbar);
         if(getSupportActionBar() != null)
             getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //initCollapsingToolbar();
+        moveFabPosition();
         loadImage(imageView);
-
         getSupportFragmentManager().beginTransaction().add(R.id.coordinator, new ListRecipesFragment()).commit();
     }
 
@@ -34,13 +34,9 @@ public class ListRecipesActivity extends AppCompatActivity {
         Glide.with(this).load(R.drawable.list_recipes_backdrop).into(imageView);
     }
 
-    private void initCollapsingToolbar() {
-        final CollapsingToolbarLayout collapsingToolbar = findViewById(R.id.list_recipes_collapsing_toolbar);
-        collapsingToolbar.setTitle(" ");
+    private void moveFabPosition() {
         AppBarLayout appBarLayout = findViewById(R.id.list_recipes_appbar);
-        appBarLayout.setExpanded(true);
-
-        // hiding & showing the title when toolbar expanded & collapsed
+        final FloatingActionButton fab = findViewById(R.id.list_recipes_fab_bottom);
         appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
             boolean isShow = false;
             int scrollRange = -1;
@@ -51,14 +47,20 @@ public class ListRecipesActivity extends AppCompatActivity {
                     scrollRange = appBarLayout.getTotalScrollRange();
                 }
                 if (scrollRange + verticalOffset == 0) {
-                    collapsingToolbar.setTitle(getString(R.string.Recipes));
+                    fab.show();
                     isShow = true;
                 } else if (isShow) {
-                    collapsingToolbar.setTitle(" ");
                     isShow = false;
+                    fab.hide();
                 }
             }
         });
+
+
     }
 
+    public void startAddRecipeActivity(View view) {
+        Intent intent = new Intent(this, NewRecipeActivity.class);
+        startActivity(intent);
+    }
 }
