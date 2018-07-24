@@ -1,78 +1,111 @@
 <?xml version="1.0" encoding="utf-8"?>
-<android.support.design.widget.CoordinatorLayout xmlns:android="http://schemas.android.com/apk/res/android"
+<android.support.v4.widget.DrawerLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
+    android:id="@+id/coordinator"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".ui.ListRecipesActivity"
     android:background="@color/colorPrimaryLight"
     android:fitsSystemWindows="true"
-    android:id="@+id/coordinator">
+    android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+    tools:context=".ui.ListRecipesActivity">
 
-    <android.support.design.widget.AppBarLayout
-        android:id="@+id/list_recipes_appbar"
+    <android.support.constraint.ConstraintLayout
         android:layout_width="match_parent"
-        android:layout_height="200dp"
-        android:fitsSystemWindows="true"
-        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar">
+        android:layout_height="match_parent">
 
-        <android.support.design.widget.CollapsingToolbarLayout
-            android:id="@+id/list_recipes_collapsing_toolbar"
+        <android.support.v7.widget.Toolbar
+            android:id="@+id/list_recipes_toolbar"
             android:layout_width="match_parent"
-            android:layout_height="match_parent"
-            android:fitsSystemWindows="true"
-            app:title="@string/Recipes"
-            app:contentScrim="@color/colorPrimary"
-            app:expandedTitleMarginEnd="64dp"
-            app:expandedTitleMarginStart="16dp"
-            app:expandedTitleTextAppearance="@android:color/transparent"
-            app:layout_scrollFlags="scroll|exitUntilCollapsed">
+            android:layout_height="?android:attr/actionBarSize"
+            android:background="@color/colorPrimary"
+            android:theme="@style/ThemeOverlay.AppCompat.ActionBar"
+            app:layout_constraintTop_toTopOf="parent" />
 
-            <ImageView
-                android:id="@+id/list_recipes_imageview"
-                android:layout_width="match_parent"
-                android:layout_height="match_parent"
-                android:scaleType="centerCrop"
-                app:layout_collapseMode="parallax"
-                android:fitsSystemWindows="true"
-                />
+        <android.support.design.widget.TabLayout
+            android:id="@+id/list_recipes_tab_layout"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@color/colorPrimary"
+            app:layout_constraintTop_toBottomOf="@id/list_recipes_toolbar"
+            app:tabIndicatorColor="@color/colorAccent"
+            app:tabMode="scrollable">
 
-            <android.support.v7.widget.Toolbar
-                android:id="@+id/list_recipes_toolbar"
-                android:layout_width="match_parent"
-                android:layout_height="?android:attr/actionBarSize"
-                app:layout_collapseMode="pin"
-                app:popupTheme="@style/ThemeOverlay.AppCompat.Light" />
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="All" />
 
-        </android.support.design.widget.CollapsingToolbarLayout>
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Favourites" />
 
-    </android.support.design.widget.AppBarLayout>
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Chinese" />
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/list_recipes_fab_top"
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Fish" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Meat" />
+
+            <android.support.design.widget.TabItem
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="Vegetarian" />
+        </android.support.design.widget.TabLayout>
+
+        <android.support.constraint.ConstraintLayout
+            android:id="@+id/list_recipes_constraintlayout"
+            android:layout_width="match_parent"
+            android:layout_height="0dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintLeft_toLeftOf="parent"
+            app:layout_constraintRight_toRightOf="parent"
+            app:layout_constraintTop_toBottomOf="@id/list_recipes_tab_layout">
+
+            <TextView
+                android:id="@+id/list_recipes_textview_norecipes"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:text="@string/no_recipes"
+                android:textColor="@color/colorPrimary"
+                app:layout_constraintBottom_toBottomOf="@id/list_recipes_constraintlayout"
+                app:layout_constraintLeft_toLeftOf="@id/list_recipes_constraintlayout"
+                app:layout_constraintRight_toRightOf="@id/list_recipes_constraintlayout"
+                app:layout_constraintTop_toTopOf="@id/list_recipes_constraintlayout" />
+
+        </android.support.constraint.ConstraintLayout>
+
+        <android.support.design.widget.FloatingActionButton
+            android:id="@+id/list_recipes_fab"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_margin="16dp"
+            android:onClick="startAddRecipeActivity"
+            android:src="@drawable/ic_playlist_add_black_24dp"
+            app:layout_constraintBottom_toBottomOf="parent"
+            app:layout_constraintRight_toRightOf="parent" />
+
+    </android.support.constraint.ConstraintLayout>
+
+    <android.support.design.widget.NavigationView
+        android:id="@+id/list_recipes_navigationview"
         android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_margin="16dp"
-        android:onClick="startAddRecipeActivity"
-        android:src="@drawable/ic_playlist_add_black_24dp"
-        app:layout_anchor="@id/list_recipes_appbar"
-        app:layout_anchorGravity="bottom|right|end" />
+        android:layout_height="match_parent"
+        android:layout_gravity="start|left"
+        android:fitsSystemWindows="true"
+        app:headerLayout="@layout/drawer_header"
+        app:menu="@menu/drawer_menu">
 
-    <android.support.design.widget.FloatingActionButton
-        android:id="@+id/list_recipes_fab_bottom"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="bottom|end"
-        android:layout_margin="16dp"
-        android:onClick="startAddRecipeActivity"
-        android:src="@drawable/ic_playlist_add_black_24dp"
-        android:visibility="invisible" />
+    </android.support.design.widget.NavigationView>
 
-    <TextView
-        android:id="@+id/list_recipes_textview_norecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_gravity="center"
-        android:text="@string/no_recipes" />
+</android.support.v4.widget.DrawerLayout>
 
-</android.support.design.widget.CoordinatorLayout>

@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item
+        android:id="@+id/menu_item_view_recipes"
+        android:icon="@drawable/ic_toc_black_24dp"
+        android:title="View Recipes" />
+
+    <item
+        android:id="@+id/menu_item_new_recipe"
+        android:icon="@drawable/ic_playlist_add_black_24dp"
+        android:title="Add a new Recipes" />
+
+    <item
+        android:id="@+id/menu_item_ingredient"
+        android:icon="@drawable/ic_search_black_24dp"
+        android:title="Ingredient Searcher" />
+
+    <item
+        android:id="@+id/menu_item_home"
+        android:icon="@drawable/ic_home_black_24dp"
+        android:title="Home" />
+
+    <item
+        android:id="@+id/menu_item_settings"
+        android:icon="@drawable/ic_settings_black_24dp"
+        android:title="Settings" />
+
+
+</menu>

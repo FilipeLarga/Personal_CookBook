@@ -39,6 +39,7 @@ public class CategorySection extends StatelessSection {
         final ItemViewHolder itemViewHolder = (ItemViewHolder) holder;
         RecipeEntity recipe = list.get(position);
         itemViewHolder.getTextItem().setText(recipe.RecipeName);
+
     }
 
     @Override
@@ -49,7 +50,6 @@ public class CategorySection extends StatelessSection {
     @Override
     public void onBindHeaderViewHolder(RecyclerView.ViewHolder holder) {
         HeaderViewHolder headerHolder = (HeaderViewHolder) holder;
-
         headerHolder.setText(title);
     }
 
