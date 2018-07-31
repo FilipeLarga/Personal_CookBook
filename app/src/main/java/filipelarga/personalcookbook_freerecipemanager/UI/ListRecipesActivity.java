@@ -4,8 +4,15 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.design.widget.NavigationView;
 import android.support.design.widget.TabLayout;
+import android.support.v4.view.GravityCompat;
+import android.support.v4.widget.DrawerLayout;
+import android.support.v7.app.ActionBar;
 import android.support.v7.app.AppCompatActivity;
 import android.support.v7.widget.Toolbar;
+import android.util.Log;
+import android.view.Menu;
+import android.view.MenuInflater;
+import android.view.MenuItem;
 import android.view.View;
 import android.widget.ImageView;
 
@@ -15,6 +22,7 @@ import filipelarga.personalcookbook_freerecipemanager.R;
 
 public class ListRecipesActivity extends AppCompatActivity {
 
+    private DrawerLayout mDrawerLayout;
     ListRecipesFragment listRecipesFragment;
 
     @Override
@@ -24,13 +32,15 @@ public class ListRecipesActivity extends AppCompatActivity {
 
         Toolbar toolbar =   findViewById(R.id.list_recipes_toolbar);
         setSupportActionBar(toolbar);
-        if(getSupportActionBar() != null)
-            getSupportActionBar().setDisplayHomeAsUpEnabled(true);
-        //moveFabPosition();
+        ActionBar actionbar = getSupportActionBar();
+        actionbar.setDisplayHomeAsUpEnabled(true);
+        actionbar.setHomeAsUpIndicator(R.drawable.ic_menu_white_24dp);
         loadImage();
         listRecipesFragment = new ListRecipesFragment();
         getSupportFragmentManager().beginTransaction().add(R.id.list_recipes_constraintlayout, listRecipesFragment).commit();
         setupTabListener((TabLayout) findViewById(R.id.list_recipes_tab_layout));
+
+        mDrawerLayout = findViewById(R.id.list_recipes_drawerlayout);
     }
 
     private void loadImage() {
@@ -39,31 +49,6 @@ public class ListRecipesActivity extends AppCompatActivity {
         ImageView drawerHeader = header.findViewById(R.id.drawer_header_imageview);
         Glide.with(this).load(R.drawable.list_recipes_backdrop).into(drawerHeader);
     }
-
-    /*private void moveFabPosition() {
-        AppBarLayout appBarLayout = findViewById(R.id.list_recipes_appbar);
-        final FloatingActionButton fab = findViewById(R.id.list_recipes_fab_bottom);
-        appBarLayout.addOnOffsetChangedListener(new AppBarLayout.OnOffsetChangedListener() {
-            boolean isShow = false;
-            int scrollRange = -1;
-
-            @Override
-            public void onOffsetChanged(AppBarLayout appBarLayout, int verticalOffset) {
-                if (scrollRange == -1) {
-                    scrollRange = appBarLayout.getTotalScrollRange();
-                }
-                if (scrollRange + verticalOffset == 0) {
-                    fab.show();
-                    isShow = true;
-                } else if (isShow) {
-                    isShow = false;
-                    fab.hide();
-                }
-            }
-        });
-
-
-    }*/
 
     private void setupTabListener(TabLayout tabLayout) {
         tabLayout.addOnTabSelectedListener(new TabLayout.OnTabSelectedListener() {
@@ -85,5 +70,24 @@ public class ListRecipesActivity extends AppCompatActivity {
     public void startAddRecipeActivity(View view) {
         Intent intent = new Intent(this, NewRecipeActivity.class);
         startActivity(intent);
+    }
+
+    @Override
+    public boolean onOptionsItemSelected(MenuItem item) {
+        switch (item.getItemId()) {
+            case android.R.id.home:
+                mDrawerLayout.openDrawer(GravityCompat.START);
+                Log.v("home", "Clicked");
+                return true;
+            default:
+                return super.onOptionsItemSelected(item);
+        }
+    }
+
+    @Override
+    public boolean onCreateOptionsMenu(Menu menu) {
+        MenuInflater inflater = getMenuInflater();
+        inflater.inflate(R.menu.menu_list_recipes, menu);
+        return true;
     }
 }

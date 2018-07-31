@@ -7,16 +7,6 @@
     app:layout_behavior="@string/appbar_scrolling_view_behavior"
     tools:context=".ui.ListRecipesFragment">
 
-    <!--<TextView
-        android:id="@+id/fragment_list_recipes_textview_norecipes"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="You have no recipes :("
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintTop_toTopOf="parent"/>-->
-
     <android.support.v7.widget.RecyclerView
         android:id="@+id/fragment_list_recipes_recyclerview"
         android:layout_width="match_parent"

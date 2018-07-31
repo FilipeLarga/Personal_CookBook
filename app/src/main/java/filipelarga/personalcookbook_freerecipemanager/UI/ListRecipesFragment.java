@@ -3,17 +3,20 @@ package filipelarga.personalcookbook_freerecipemanager.ui;
 import android.app.Dialog;
 import android.arch.lifecycle.Observer;
 import android.arch.lifecycle.ViewModelProviders;
+import android.content.Intent;
 import android.graphics.Color;
 import android.graphics.drawable.ColorDrawable;
 import android.os.Bundle;
 import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
+import android.support.design.widget.Snackbar;
 import android.support.v4.app.Fragment;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.Button;
 import android.widget.ImageView;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -25,6 +28,7 @@ import java.util.List;
 
 import filipelarga.personalcookbook_freerecipemanager.Categories;
 import filipelarga.personalcookbook_freerecipemanager.R;
+import filipelarga.personalcookbook_freerecipemanager.database.DBExecutioner;
 import filipelarga.personalcookbook_freerecipemanager.database.RecipeEntity;
 import filipelarga.personalcookbook_freerecipemanager.recyclerview.CategorySection;
 import filipelarga.personalcookbook_freerecipemanager.recyclerview.NormalAdapter;
@@ -52,8 +56,7 @@ public class ListRecipesFragment extends Fragment {
     public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View view = inflater.inflate(R.layout.fragment_list_recipes, container, false);
-        tv = container.findViewById(R.id.list_recipes_textview_norecipes);
-
+        this.tv = container.findViewById(R.id.list_recipes_textview_norecipes);
         sectionAdapter = new SectionedRecyclerViewAdapter();
         normalAdapter = new NormalAdapter();
 
@@ -82,6 +85,7 @@ public class ListRecipesFragment extends Fragment {
                     } else return; //Clicou num header
                 }
                 //TODO Intent para nova activity com o recipeClicked
+                startViewRecipeActivity();
             }
 
             @Override
@@ -204,8 +208,8 @@ public class ListRecipesFragment extends Fragment {
         }
     }
 
-    public void showDialog(RecipeEntity recipe) {
-        Dialog dialog = new Dialog(getContext());
+    public void showDialog(final RecipeEntity recipe) {
+        final Dialog dialog = new Dialog(getContext());
 
 //      IF THE RECIPE HAS IMAGE
         dialog.setContentView(R.layout.popup_list_recipes);
@@ -213,6 +217,26 @@ public class ListRecipesFragment extends Fragment {
         title.setText(recipe.RecipeName);
         ImageView image = dialog.findViewById(R.id.popup_imageview);
         Glide.with(this).load(R.drawable.test_remove_later_please).into(image);
+        Button viewButton = dialog.findViewById(R.id.popup_view_recipe);
+        Button editButton = dialog.findViewById(R.id.popup_edit_recipe);
+
+        Button deleteButton = dialog.findViewById(R.id.popup_remove_recipe);
+        deleteButton.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                DBExecutioner.getInstance().deleteRecipe(recipe, getContext());
+                Snackbar snackbar = Snackbar.make(getActivity().findViewById(R.id.list_recipes_coordinator),
+                        recipe.RecipeName + " has been removed", Snackbar.LENGTH_LONG);
+                snackbar.setAction("UNDO", new View.OnClickListener() {
+                    @Override
+                    public void onClick(View v) {
+                        DBExecutioner.getInstance().addRecipe(recipe, getContext());
+                    }
+                });
+                snackbar.show();
+                dialog.dismiss();
+            }
+        });
 
 //        IF THE RECIPE HAS NO IMAGE
 //        dialog.setContentView(R.layout.popup_list_recipes_no_image);
@@ -221,6 +245,11 @@ public class ListRecipesFragment extends Fragment {
 
         dialog.getWindow().setBackgroundDrawable(new ColorDrawable(Color.TRANSPARENT));
         dialog.show();
+    }
+
+    public void startViewRecipeActivity() {
+        Intent intent = new Intent(getActivity(), ViewRecipeActivity.class);
+        startActivity(intent);
     }
 
 }

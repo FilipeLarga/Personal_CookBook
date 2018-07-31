@@ -9,7 +9,6 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme_NoActionBar">
-
         <activity
             android:name=".ui.HomeActivity"
             android:screenOrientation="portrait"
@@ -21,17 +20,16 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
-
         <activity
             android:name=".ui.NewRecipeActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
         <activity
             android:name=".ui.ListRecipesActivity"
-            android:screenOrientation="portrait">
-        </activity>
-
+            android:screenOrientation="portrait" />
+        <activity
+            android:name=".SettingsActivity"
+            android:label="@string/title_activity_settings" />
+        <activity android:name=".ui.ViewRecipeActivity"></activity>
     </application>
 
 </manifest>
